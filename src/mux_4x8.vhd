@@ -3,7 +3,8 @@ use IEEE.STD_LOGIC_1164.all;
 use IEEE.STD_LOGIC_UNSIGNED.all;
 
 entity mux_4x8 is
-	port(	
+	port(	  
+		ENABLE: in STD_logic;
 		SEL : in STD_logic_vector(3 DOWNTO 0);
 		IN0 : in STD_logic_vector(3 DOWNTO 0);
 		IN1 : in STD_logic_vector(3 DOWNTO 0);
@@ -34,7 +35,13 @@ begin
 					IN6 when "0110",
 					IN7 when "0111",
 					"0000" when others;
-	
-	OUTPUT <= buffer_out;
+	process(ENABLE,buffer_out) 
+	begin
+		if ENABLE = '1' then
+			OUTPUT <= buffer_out;
+		else
+			OUTPUT <= "1111";
+		end if;
+	end process;
 	
 end mux_4x8;
