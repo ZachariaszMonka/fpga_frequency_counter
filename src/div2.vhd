@@ -25,11 +25,13 @@ begin
 	begin	 
 		if 	CLR = '1' then
 			OUTl <= '0';
-		elsif CLK='1' and CE = '1' then
-	   		if OUTl	= '1' then
-				OUTl <= '0';
-			else   
-				OUTl <= '1';
+		elsif CLK'event and CLK='1'  then  
+			if CE = '1' then
+		   		if OUTl	= '1' then
+					OUTl <= '0';
+				else   
+					OUTl <= '1';
+				end if;			 
 			end if;
 		end if;
 	end process; 
