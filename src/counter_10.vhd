@@ -18,7 +18,7 @@ end counter_10;
 architecture counter_10 of counter_10 is
 	
 begin
-	process (CLK,CLR)
+	process (CLK)
 		variable over_buff: STD_LOGIC := '0'; 
 		variable Q_INT: STD_LOGIC_VECTOR(3 downto 0) := "0000";
 	begin

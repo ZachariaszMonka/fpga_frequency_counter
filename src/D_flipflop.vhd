@@ -6,9 +6,9 @@ use work.my_type.all;
 entity D_flipflop is	 
 	
 	port(	
-		input : in disp;
+		D : in disp;
 		output : out disp;
-		D : in STD_LOGIC	
+		clk : in STD_LOGIC	
 		);	   
 end D_flipflop;
 
@@ -17,10 +17,10 @@ end D_flipflop;
 architecture D_flipflop of D_flipflop is
 begin 
 	
-	process (D)
+	process (clk)
 		begin 
-			if D'event and D='1' then  
-				output <= input;
+			if clk'event and clk='1' then  
+				output <= D;
 			end if;	
 	end process;
 	

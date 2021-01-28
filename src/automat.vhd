@@ -4,24 +4,26 @@ use IEEE.STD_LOGIC_1164.all;
 use IEEE.STD_LOGIC_UNSIGNED.all;
 
 
-entity Prescaler_CH2 is
+entity automat is
 	port(
 		CLK : in STD_LOGIC;
 		CE : in STD_LOGIC;
 		CLR : in STD_LOGIC;
-		CEO : out STD_LOGIC
+		CLR_OUT : out STD_LOGIC;
+		LATCH_OUT : out STD_LOGIC;
+		EN_OUT : out STD_LOGIC
 		);	   
-end Prescaler_CH2;
+end automat;
 
 
 
-architecture Prescaler_CH2 of Prescaler_CH2 is
+architecture automat of automat is
 
 signal DIVIDER: std_logic_vector(31 downto 0) := "00000000000000000000000000000000"; 	
 
-constant divide_factor: integer := 100000;			
+constant divide_factor: integer := 10000002;		
 												
-
+	  	
 begin 
 	process (CLK, CLR)
 	begin
@@ -38,9 +40,12 @@ begin
 		end if;
 	end process;
 
-CEO <= '1' when DIVIDER = (divide_factor-1) and CE = '1' else '0';
+LATCH_OUT <= '1' when DIVIDER = (divide_factor-1) and CE = '1' else '0';
+CLR_OUT <= '1' when DIVIDER = 0 and CE = '1' else '0';
+EN_OUT <= '1' when not(DIVIDER = 0 or DIVIDER =(divide_factor-1)) and CE = '1' else '0';
 	
-end Prescaler_CH2;
+	
+end automat;
 
 
 
