@@ -19,7 +19,7 @@ architecture Prescaler of Prescaler is
 
 signal DIVIDER: std_logic_vector(31 downto 0) := "00000000000000000000000000000000"; 	
 
-constant divide_factor: integer := 100000000;		
+constant divide_factor: integer := 10000000;		
 												
 
 begin 

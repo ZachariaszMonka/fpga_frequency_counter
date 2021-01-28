@@ -35,6 +35,7 @@ begin
 					IN6 when "0110",
 					IN7 when "0111",
 					"0000" when others;
+
 	process(ENABLE,buffer_out) 
 	begin
 		if ENABLE = '1' then
