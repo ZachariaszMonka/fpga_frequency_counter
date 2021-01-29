@@ -21,7 +21,7 @@ architecture automat of automat is
 
 signal DIVIDER: std_logic_vector(31 downto 0) := "00000000000000000000000000000000"; 	
 
-constant divide_factor: integer := 10000002;		
+constant divide_factor: integer := 2500002;		
 												
 	  	
 begin 
