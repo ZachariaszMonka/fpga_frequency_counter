@@ -15,11 +15,12 @@ end parallel_to_serial;
 
 
 architecture parallel_to_serial of parallel_to_serial is
+	signal parity: STD_LOGIC;
 	
 begin
 	process (CLK,CLR)
 		variable Q_INT: STD_LOGIC_VECTOR(3 downto 0) := "0000";	
-	 	signal parity STD_LOGIC;
+	 	
 	begin
 		
 		if CLR='1' then	 
@@ -31,7 +32,7 @@ begin
 		end if;
 		
 	end process; 
-	parity <= xor(data_in);
+	parity <= data_in(1) xor data_in(0); --TODO
 	
    with Q_INT select
    data_out <=
@@ -46,7 +47,7 @@ begin
 		data_in(7)	when "1000",
 		parity		when "1001",
 		'0' 		when "1010",--stop bit
-		'1' 		others;		--idle
+		'1' 		when others;		--idle
 
 end parallel_to_serial;
 
