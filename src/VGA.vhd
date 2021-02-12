@@ -49,12 +49,27 @@ architecture VGA of VGA is
     );
     end component;
     
-
+    component BCD_to_text
+    port(	
+        Input : in disp;
+        Output : out text_line_type
+    );  
+    end component;
+    
+    component zero_delete
+    port(    
+        clk :  in STD_LOGIC;
+        input : in disp;
+        output : out disp
+    );  
+    end component;
+   
 
     signal over : STD_LOGIC;
     signal x : STD_LOGIC_VECTOR(9 downto 0);
     signal y : STD_LOGIC_VECTOR(9 downto 0);
-    signal buff : text_line_type;
+    signal buff_in : disp;
+    signal buff_out : text_line_type;
 
 begin
 
@@ -77,7 +92,7 @@ begin
     U3 : vga_text
     port map(
         clk => CLK100MHZ,
-        data => buff,
+        data => buff_out,
         x => x,
         y => y,
         R => VGA_R,
@@ -85,6 +100,18 @@ begin
         B => VGA_B
     );
     
+    U4 : BCD_to_text
+    port map(
+        Input => buff_in,
+        Output => buff_out
+    );
+    
+    U5 : zero_delete
+    port map(
+        clk => CLK100MHZ,
+        Input => input,
+        Output => buff_in
+    );
             
             
 

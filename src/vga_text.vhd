@@ -19,16 +19,15 @@ entity vga_text is
 		);	   
 end vga_text;
 
-	   
 
 architecture vga_text of vga_text is		 
 
-	 
 
 begin 
 		
 	process (clk) 
-	variable sign: integer := 0;
+	variable sign: integer := 0;	 
+	variable sign_in_text: integer := 0;
 	variable blok_in_sign_X: integer := 0; 
 	variable blok_in_sign_Y: integer := 0;	 
 
@@ -41,36 +40,32 @@ begin
 				G <= "0000";
 				B <= "0000";
 			else   
-				if y(9 downto 6) = "0000" then -- first line
+				if y(9 downto 6) = "0000" then -- first text line
 					--	which sign 
-					sign := to_integer(unsigned(x(9 downto 6))); 
+					sign_in_text := to_integer(unsigned(x(9 downto 6))); 
+					sign := to_integer(unsigned(data(sign_in_text))); --TODO this and BCD to TEXT 
+                    
+				
 					--  which group pixel in sign
 					blok_in_sign_X := to_integer(unsigned(x(5 downto 2)));
 					blok_in_sign_Y := to_integer(unsigned(y(5 downto 2)));
 					
 					
 					--  compare with table
-					--if (blok_in_sign_X = 0) and (blok_in_sign_Y = 0) then
-					if font_table(0)(0)(blok_in_sign_X) = '1' then
+					if font_table(sign)(blok_in_sign_Y)(blok_in_sign_X) = '1' then
 						R <= "0000";
 						G <= "1111";
 						B <= "0000";
 					else
-						R <= "0010";
+						R <= "0000";
 						G <= "0000";
 						B <= "0000";
 					end if;
-					
-					
-					
-					
-					
+			
 					
 				end if;
 			end if;
 		end if;
 	end process;
 	
-end vga_text; 
-
- 
+end vga_text;
